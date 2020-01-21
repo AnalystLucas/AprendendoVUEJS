@@ -1,0 +1,97 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app" class="container-fluid">
+
+<div class="IMG">
+    <img :src="linkIMG" alt="Logo VueJS" width="200px">
+    <h1>
+        <p>
+        </p>
+        <b>{{ msg }}</b>
+    </h1>
+</div>
+
+<div>
+    <div class="alert alert-warning tcenter" role="alert" v-show="usuarios.length === 0">
+        <b>Não Existem Usuarios Registrado !</b>
+    </div>
+    
+    <div class="form-group"> 
+        <p>
+            <input type="text" placeholder="Digite um codigo !" class="form-control" name="idUsuario" v-model="id">
+        </p>
+
+        <p>
+            <input type="text" placeholder="Digite um nome !" class="form-control" name="nomeUsuario" v-model="nome">
+        </p>
+
+        <button class="btn btn-primary" @click="adicionar()">Adicionar</button>
+    </div> 
+    
+    <table class="table table-striped" v-show="usuarios.length > 0">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOME</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="(usuario, index) in usuarios" :key="usuario.id">
+            <td>{{ usuario.id }}</td>
+            <td>{{ usuario.nome }}</td>
+            <td>
+                <button class="btn btn-danger" @click="deletar(index)">REMOVER</button>
+            </td>
+            
+        </tr>
+    </tbody>
+    </table>
+</div>    
+
+</div>
+
+<script>
+new Vue({
+    el: '#app',
+    data:{
+        msg: 'Aprendendo VueJS',
+        linkIMG: 'https://vuejs.org/images/logo.png',
+        usuarios: [
+        {id: '1', nome: 'Lucas'},
+        {id: '2', nome: 'Karen'},
+        {id: '3', nome: 'Fabiana'},
+        {id: '4', nome: 'Roque'},
+        ],
+        id: '',
+        nome: ''
+    },
+    methods: {
+        deletar(parametro){
+            this.usuarios.splice(parametro, 1);
+        },
+        adicionar(){
+            this.usuarios.push({
+                id: this.id,
+                nome: this.nome
+            });
+            this.id = '';
+            this.nome = '';
+        }
+    }
+})
+
+</script>
+
+<style>
+
+.IMG{
+    text-align: center;
+}
+.tcenter{
+    text-align: center;
+}
+
+</style>
